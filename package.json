@@ -1,0 +1,44 @@
+{
+  "name": "rag-motion-starter",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "A five-second cartoon RAG animation with replaceable narration",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
+  "scripts": {
+    "dev": "remotion studio src/index.ts",
+    "check": "tsc --noEmit && node --test scripts/*.test.mjs",
+    "render": "remotion render src/index.ts RAG-FiveSecond examples/demo-silent.mp4 --codec h264 --crf 20 --concurrency 2",
+    "render:voice": "remotion render src/index.ts RAG-FiveSecond out/demo-voice.mp4 --props examples/with-voice.json --codec h264 --crf 20 --concurrency 2",
+    "voice:import": "node scripts/import-voice.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.537",
+    "@remotion/media": "4.0.537",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.537"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "typescript": "5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Olandooooes/rag-motion-starter.git"
+  },
+  "homepage": "https://github.com/Olandooooes/rag-motion-starter#readme",
+  "bugs": {
+    "url": "https://github.com/Olandooooes/rag-motion-starter/issues"
+  },
+  "keywords": [
+    "rag",
+    "remotion",
+    "animation",
+    "education",
+    "react",
+    "typescript"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "audioSrc": "audio/voice.wav",
+  "audioOffsetSeconds": 0,
+  "audioVolume": 1,
+  "captions": [
+    {"text": "先查资料。", "startSeconds": 0.15, "endSeconds": 1.65},
+    {"text": "再带着证据回答。", "startSeconds": 2.2, "endSeconds": 4.7}
+  ]
+}
