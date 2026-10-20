@@ -6,6 +6,10 @@ on:
       - docs/**
       - examples/demo-silent.mp4
       - examples/poster.png
+      - examples/auto-video/**
+      - downloads/**
+      - skills/auto-video/**
+      - scripts/package_skill.py
       - scripts/build-demo.mjs
       - .github/workflows/pages.yml
   workflow_dispatch:
@@ -28,6 +32,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - run: python3 scripts/package_skill.py
       - run: node scripts/build-demo.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

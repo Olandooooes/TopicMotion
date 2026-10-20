@@ -1,0 +1,6 @@
+interface:
+  display_name: "自动视频制作"
+  short_description: "给一个话题，自动完成分镜、配音、字幕与成片，可选卡通、流程图或极简图文风格"
+  default_prompt: "用 $auto-video 把 RAG 做成一个 15 秒的卡通讲解视频，自动完成文案、配音和成片。"
+policy:
+  allow_implicit_invocation: true

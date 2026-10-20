@@ -1,19 +1,23 @@
 {
   "name": "cartoon-video-starter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "license": "MIT",
-  "description": "Editable cartoon video starter with motion graphics, narration and browser previews",
+  "description": "Topic-to-video Codex Skill with automated narration, subtitles and three motion graphic styles",
   "engines": {
     "node": "^20.19.0 || ^22.13.0 || >=24"
   },
   "scripts": {
     "dev": "remotion studio src/index.ts",
-    "check": "tsc --noEmit && node --test scripts/*.test.mjs",
+    "check": "tsc --noEmit && npm run check:renderer && node --test scripts/*.test.mjs",
     "render": "remotion render src/index.ts RAG-FiveSecond examples/demo-silent.mp4 --codec h264 --crf 20 --concurrency 2",
     "render:voice": "remotion render src/index.ts RAG-FiveSecond out/demo-voice.mp4 --props examples/with-voice.json --codec h264 --crf 20 --concurrency 2",
     "voice:import": "node scripts/import-voice.mjs",
-    "demo:build": "node scripts/build-demo.mjs"
+    "demo:build": "node scripts/build-demo.mjs",
+    "skill:install": "node scripts/install-skill.mjs",
+    "skill:pack": "python3 scripts/package_skill.py",
+    "video:example": "node skills/auto-video/scripts/render.mjs --job skills/auto-video/examples/rag-15s.json --out out/rag-example",
+    "check:renderer": "tsc --noEmit --jsx react-jsx --moduleResolution Bundler --module Preserve --target ES2018 --skipLibCheck --strict skills/auto-video/assets/renderer/src/index.tsx"
   },
   "dependencies": {
     "@remotion/cli": "4.0.537",

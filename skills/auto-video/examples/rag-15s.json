@@ -1,0 +1,13 @@
+{
+  "topic": "RAG 是什么",
+  "style": "cartoon",
+  "duration": 15,
+  "sources": [
+    {"title": "Lewis et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks", "url": "https://arxiv.org/abs/2005.11401", "note": "基于论文核心概念的通俗改写；不是原文逐字引用。"}
+  ],
+  "scenes": [
+    {"title": "先查资料，再回答", "visual": "flow", "labels": ["提出问题", "查找资料", "生成回答"], "narration": "RAG，让模型先查资料，再回答问题。"},
+    {"title": "把证据交给模型", "visual": "evidence", "labels": ["检索相关片段", "补充回答上下文", "保留来源信息"], "narration": "先检索相关片段，再把证据交给模型。"},
+    {"title": "有出处，也要核查", "visual": "summary", "labels": ["资料需要更新", "出处方便核查", "答案仍可能出错"], "narration": "回答可以附上出处，但仍然需要核查。"}
+  ]
+}

@@ -15,3 +15,12 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
+      - run: npm run skill:pack
+      - run: npm run demo:build
+      - run: git diff --exit-code -- downloads
+      - name: Verify standalone Skill installation
+        run: |
+          python3 -m zipfile -e downloads/auto-video.zip "$RUNNER_TEMP/skill-smoke"
+          npm ci --ignore-scripts --prefix "$RUNNER_TEMP/skill-smoke/auto-video/assets/renderer"
+          node scripts/verify-skill-package.mjs "$RUNNER_TEMP/skill-smoke/auto-video"
+          node "$RUNNER_TEMP/skill-smoke/auto-video/scripts/render.mjs" --help

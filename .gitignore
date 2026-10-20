@@ -8,3 +8,5 @@ dist/
 public/audio/*
 !public/audio/README.md
 examples/with-voice.json
+skills/**/node_modules/
+skills/**/public/jobs/

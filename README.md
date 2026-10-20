@@ -1,118 +1,123 @@
-# Cartoon Video Starter · 卡通视频制作模板
+# Auto Video Skill · 给一个话题，做一条视频
 
-一个用 React、SVG 和 Remotion 制作卡通视频的可编辑起点：编排图形变化、字幕和声音，再导出 MP4。适用于知识讲解、产品介绍、流程演示等主题。**RAG 只是仓库内置的五秒教学样例，不是这个项目的使用范围。**
+**在 Codex 里说出话题、风格和时长，自动完成讲稿、分镜、配音、字幕与 MP4 成片。无需另外申请模型 API。**
 
-当前版本是代码驱动的视频制作模板，加上可在网页中替换录音的演示播放器；尚不包含拖拽剪辑、多轨时间线或输入文本自动生成完整视频。动画由浏览器逐帧计算后编码，不是逐帧调用视频生成模型。
+[在线演示](https://olandooooes.github.io/cartoon-video-starter/) · [下载 Skill](downloads/auto-video.zip) · [Skill 指令](skills/auto-video/SKILL.md) · [验证与交付记录](DELIVERY.md) · [独立评审记录](REVIEW.md)
 
-制作其他主题时：写口播与分镜 → 修改示例组件的文字和 SVG 图形 → 调整关键帧及字幕时间 → 导入录音 → 预览并导出。`src/FiveSecond.tsx` 是可替换的示例场景，`src/config.ts` 定义字幕和声音参数；可新增场景组件并注册为其他 Composition。当前演示仍固定五秒，延长时需同步调整场景、参数校验和配音时间。
+> 用 `$auto-video` 把 RAG 做成 15 秒卡通讲解视频，全自动生成口播、字幕和成片。
 
-**[▶ 在线演示：无需安装，直接观看五秒动画](https://olandooooes.github.io/cartoon-video-starter/)**
+![自动成片示例](examples/auto-video/poster.png)
 
-![动画封面](examples/poster.png)
+[观看 15 秒无声样片](examples/auto-video/rag-15s-silent.mp4)。本地已验证有声成片；公开版不附带尚未确认再分发授权的系统配音。RAG 是验证话题，工具不限于 RAG 或卡通。
 
-[查看五秒无声示例](https://github.com/Olandooooes/cartoon-video-starter/raw/refs/heads/main/examples/demo-silent.mp4)
+## 它怎样工作
 
-- 1280 × 720，30 fps，150 帧，5 秒。
-- 默认无声；保留字幕，可自行录音或使用有权使用的配音。
-- 本项目不调用 TTS 服务，不需要 API Key。依赖安装或首次浏览器准备可能联网。
-- 检索条长度是动画示意，不是真实统计数据；制度、版本及“30 天”均为虚构教学案例。
+```mermaid
+flowchart LR
+  A[话题 · 风格 · 时长] --> B[Codex 编稿并核验事实]
+  B --> C[结构化分镜]
+  C --> D[本地合成语音并测时]
+  D --> E[字幕 · 动画 · 转场]
+  E --> F[MP4 + SRT + 口播稿]
+```
 
-## 安装与预览
+内容生成使用当前 Codex 对话模型，渲染器使用 React、SVG 和 Remotion。**Skill 在 Codex 中运行；GitHub Pages 是演示页，不是任意话题生成后端。** 无需额外模型 API，不代表没有 Codex 用量或本机渲染成本。
 
-安装 Node.js 22.13+（22 系列）或 Node.js 24+；也支持 20.19+（20 系列）。建议使用 Node 24。
+## 安装与第一次使用
+
+已验证环境：macOS、Node.js 24、Chrome、系统 Tingting 语音。需要 Node.js 22.13+；建议 Node 24。首次运行可能下载 npm 依赖或浏览器。当前其他系统尚未实现自动配音适配器。
 
 ```sh
 git clone https://github.com/Olandooooes/cartoon-video-starter.git
 cd cartoon-video-starter
 npm ci
-npm run check
-npm run dev
+npm run skill:install
 ```
 
-打开终端显示的 Studio 地址，选择 `RAG-FiveSecond`，按空格播放，拖动时间轴检查动画。首次运行可能准备浏览器。工作目录不要放在需要登录或包含私人资料的公开服务器中。
+安装到 `${CODEX_HOME:-~/.codex}/skills/auto-video`。已有同名 Skill 时会停止，避免覆盖个人修改。在新 Codex 对话中调用；若列表未更新，重启 Codex。
 
-## 导出
+无需整仓库安装：下载 [auto-video.zip](downloads/auto-video.zip)，解压后将完整的 `auto-video/` 放进 Codex 的 `skills/` 目录。压缩包不含 node_modules、生成的配音或秘密信息，首次调用自动准备已锁定依赖。
+
+然后直接说：
+
+```text
+用 $auto-video 把“为什么会有四季”做成 30 秒流程图风格视频。
+面向初中生，自动完成资料核验、讲稿、分镜、配音和成片。
+```
+
+不用自己写 JSON，也不用逐步批准每个制作环节。默认中文、30 秒、横屏 720p；话题、时长和风格以用户要求为准。
+
+## 可选风格
+
+| 风格 | 适合表达 | 预览 |
+| --- | --- | --- |
+| `cartoon` 卡通 | 科普、入门讲解 | [查看](examples/auto-video/cartoon.png) |
+| `diagram` 深色流程图 | 技术原理、流程 | [查看](examples/auto-video/diagram.png) |
+| `editorial` 极简图文 | 观点、要点、产品说明 | [查看](examples/auto-video/editorial.png) |
+
+这三个版本使用同一分镜，改变视觉呈现。当前为程序化图形动画，不包含生成式实拍、数字人或逐帧角色表演。
+
+## 无需调用模型的复现命令
+
+已经生成的 [RAG 分镜](skills/auto-video/examples/rag-15s.json) 可直接复现“分镜到成片”：
 
 ```sh
-npm run render
+npm run video:example
 ```
 
-生成 `examples/demo-silent.mp4`，覆盖仓库中的无声样片。默认仅两个并发渲染任务。若已有 Chrome，希望避免额外下载，可指定浏览器：
+默认输出 `out/rag-example/`，非空目录会拒绝写入。重复验证请换一个新目录：
 
 ```sh
-# macOS 示例；其他系统替换成实际 Chrome 可执行文件路径
-npm run render -- --browser-executable="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+node skills/auto-video/scripts/render.mjs \
+  --job skills/auto-video/examples/rag-15s.json \
+  --out out/my-rag-run
 ```
 
-视频编码消耗本机 CPU、内存与时间，不等于语言模型 token 消耗。当前仅渲染 150 帧。修改字体后不同系统的字形和排版可能略有差异。
-
-## 替换配音
-
-推荐先录制两句话：“先查资料。”（约 0.15 秒开始）与“再带着证据回答。”（约 2.2 秒开始），重点之间留停顿。也可用自己有权使用的语音服务生成音频，再离线导入。请先剪辑成约 5 秒的完整时间轴；字幕不会自动识别或对齐。
-
-```sh
-npm run voice:import -- --file "/完整路径/我的录音.wav" --license-note "本人录制，允许用于本项目"
-npm run render:voice
-```
-
-生成 `out/demo-voice.mp4`。支持 wav、mp3、m4a、ogg。重复导入同扩展名会覆盖本地配音。导入程序只复制文件并记录来源说明，不判断其法律授权。
-
-导入后生成 `examples/with-voice.json`。可编辑：
-
-| 参数 | 用途 |
+| 输出 | 内容 |
 | --- | --- |
-| `audioSrc` | `public/` 下的相对路径，如 `audio/voice.wav`；`null` 为无声 |
-| `audioOffsetSeconds` | 音频延迟开始的秒数，0 ≤ 值 < 5 |
-| `audioVolume` | 音量，0–1 |
-| `captions` | 可选；传入完整字幕数组覆盖默认值，`[]` 隐藏字幕 |
+| `movie.mp4` | H.264 + AAC，1280×720，30 fps |
+| `poster.png` | 封面 |
+| `script.txt`、`captions.srt` | 口播稿和同步字幕 |
+| `input.json`、`timeline.json` | 输入分镜与测时后的时间线 |
+| `style-previews/` | 三种风格的静帧 |
+| `report.json`、`assets/` | 时长与来源记录、本地合成音轨 |
 
-参考 `examples/with-voice.example.json`。字幕的 `startSeconds`、`endSeconds` 必须在 0–5 秒内，按时间排列且不重叠。未覆盖字幕时使用 `src/FiveSecond.tsx` 的默认字幕。音频延迟会移动声音，不会自动移动字幕。超过片尾的声音被截断；太短则后段无声。
+程序逐句合成语音，测量实际音频长度，调整语速与场景时间。口播过长会明确报错，Skill 应压缩文案后重试；不截断句子假装完成。当前支持 5–180 秒和最多 12 个场景，长内容需要分段制作。
 
-Studio 带配音预览：
+**命令行渲染器不会自己凭空生成新话题内容。** 新话题的编稿和事实核验由使用 Skill 的 Codex 完成。结构化格式见 [job-format.md](skills/auto-video/references/job-format.md)。
 
-```sh
-npm run dev -- --props=examples/with-voice.json
-```
+## 在线演示与录音试听
 
-导入的音频、授权备注、生成配置及有声导出默认均被 Git 忽略。若要公开配音，先核对实际分发和商用授权，再主动调整忽略规则，并补充素材许可。原先本地 Edge 配音及含该配音的成片未纳入此项目。
+[演示页](https://olandooooes.github.io/cartoon-video-starter/) 包含完整 15 秒样片、三种风格静帧、Skill 下载和指令生成入口，保留最早五秒形状变换试样。
 
-## 修改画面
-
-- `src/FiveSecond.tsx`：标题、文案、SVG 形状、颜色与关键帧。
-- `src/config.ts`：参数类型与音频、字幕校验。
-- `public/robot.svg`：可编辑的卡通机器人。
-- `src/index.ts`：注册 Remotion 根组件。
-- `scripts/import-voice.mjs`：离线导入配音，无网络请求。
-
-当前关键帧按 30 fps 设计。若修改帧率或时长，需一起调整动画关键帧、字幕和参数校验；仅替换文案或声音不需要改时长。中文字体依次尝试苹方、微软雅黑、Noto Sans CJK SC、系统 sans-serif。本项目不附带系统字体；Linux 如出现方框，请安装 Noto CJK 字体后重启预览。
-
-## 许可与发布边界
-
-本项目自己的代码、机器人 SVG、无声示例及封面按 [MIT](LICENSE) 提供，可修改、再分发、用于商业项目，并保留许可声明。第三方依赖仍受各自条款约束，MIT 不会覆盖它们。
-
-**Remotion 为 source-available，不能把本项目的 MIT 理解为 Remotion 本身也采用 MIT。** 当前固定 4.0.537；其许可对个人、符合条件的小型公司等提供免费使用，其他使用情形可能需要公司许可。使用、升级或商业交付前请核对实际条件，见 [第三方说明](THIRD_PARTY_NOTICES.md)。配音另见 [音频许可说明](AUDIO_LICENSE.md)。
-
-`private: true` 仅用于防止意外发布 npm 包，不影响把源码开源到 Git 仓库。公开修改版本前，请确认新加的图片、字体、音乐、声音和客户资料都有相应授权，并避免提交密钥。
-
-## 本地验收记录
-
-已在 macOS、Node 24 环境完成锁文件安装（`npm ci`）、TypeScript 检查及 3 项导入参数测试；在 Studio 检查布局，并完成无声与替换测试音两条完整导出链路。无声样片实测 5.000 秒、1280×720、30 fps，无音轨；带测试音的 MP4 因 AAC 编码尾帧为约 5.013 秒。测试音和测试成片不随源码分发。其他操作系统尚未实机验证。
-
-
-## 在线演示与 GitHub Pages
-
-演示页提供播放、暂停、重播、循环播放和 MP4 下载，适配手机；不自动播放、不收集数据，也不依赖在线 TTS 或第三方 CDN。演示使用仓库的五秒无声成片，无需在访客设备上安装 Remotion。
+在五秒播放器下选择自己的录音，即可同步试听、调音量与延迟；录音仅在本浏览器读取，不上传、不保存。刷新后需重选。此处不合成新 MP4，下载的仍是无声视频。
 
 ```sh
 npm run demo:build
-# 使用任意静态服务器预览 dist/；例如已安装 Python 时：
 python3 -m http.server 8080 --directory dist --bind 127.0.0.1
 ```
 
-`docs/index.html` 是页面源文件。构建脚本将页面和示例视频、封面复制到 `dist/`，没有再次渲染视频，也无需安装 npm 依赖。GitHub Pages 使用 `.github/workflows/pages.yml` 部署，在更新页面或样例素材后自动刷新。Fork 后，请在 Settings → Pages 中将 Source 设置为 GitHub Actions，并替换 README 和页面中的原仓库链接。
+Pages 工作流自动部署页面、公开示例和 Skill 下载。Fork 后启用 Settings → Pages → GitHub Actions，并替换仓库链接。页面没有第三方 CDN、在线 TTS 或分析脚本。
 
-### 在网页中替换配音
+## 开发与验证
 
-打开在线演示，在“换成你的声音”中选择本地录音，再点击“播放动画”，无需改代码。可调整录音音量和延迟开始时间（0–4.9 秒）；暂停、拖动进度、变速和循环重播时，录音按视频时间重新同步。切换到后台时暂停播放。建议使用约 5 秒的 MP3 或 WAV；支持格式取决于浏览器，文件上限 25 MB、解码时长上限 5 分钟。较短录音播放结束后无声，较长录音在片尾停止。
+```sh
+npm run check       # 主项目与独立渲染器类型检查、行为测试
+npm run skill:pack # Python 3 标准库，生成可复现 ZIP 和 SHA256SUMS
+npm run dev        # 最初五秒动画的 Remotion Studio
+```
 
-音频通过浏览器 Web Audio API 在本机解码，不发送到服务器，也不保存到账号或浏览器存储；刷新后需重新选择。此功能只做同步试听，不修改原视频或字幕，下载的仍是无声 MP4。如需导出合成配音的视频，请使用上面的本地渲染教程。
+- `skills/auto-video/`：可独立安装的 Skill 和渲染器。
+- `src/FiveSecond.tsx`：保留的最初五秒样片。
+- `docs/`、`scripts/build-demo.mjs`：静态演示页。
+- `examples/auto-video/`：公开的无声成片和风格预览。
+
+运行自动视频 Skill 不需要 Python 或 PyYAML；Python 仅用于源码打包。官方 Skill 校验器属于维护工具，可在具备 PyYAML 的环境使用。
+
+## 来源、许可和限制
+
+原创代码、机器人 SVG、公开无声视频与静帧采用 [MIT](LICENSE)。Remotion 是 source-available，依其自身许可，不能把本仓库 MIT 解释为对 Remotion 的重新授权。详见 [第三方说明](THIRD_PARTY_NOTICES.md)、[素材来源](SOURCES.md) 和 [配音说明](AUDIO_LICENSE.md)。
+
+RAG 事实来自公开论文的通俗改写。图中排序条不代表实测统计，最初样例中的制度和“30 天”是虚构教学案例。输出质量仍依赖资料、脚本和所用语音，自动生成不等于事实保证。
+
+当前待用户决定的事项记录在 [DELIVERY.md](DELIVERY.md)：包括未来公开配音的授权来源，以及是否投入云端生成后端。它们不影响现有本地 Skill、公开无声演示和复现流程。
