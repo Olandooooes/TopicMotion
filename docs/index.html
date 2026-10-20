@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="无需安装，观看五秒 RAG 卡通动画：从资料检索到有据可查的回答。">
+<meta name="theme-color" content="#fffaf0">
+<title>RAG Motion · 五秒看懂知识如何流动</title>
+<style>
+:root{color-scheme:light;--ink:#263340;--paper:#fffaf0;--mint:#b9dfce;--gold:#ffd971}*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--paper);font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background-image:radial-gradient(#d6ccb5 1px,transparent 1px);background-size:24px 24px}main{max-width:1120px;margin:auto;padding:30px 28px 48px}nav{display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-weight:900;letter-spacing:2px}a{color:inherit;text-underline-offset:5px}.repo{font-size:14px}header{margin:52px 0 28px;display:flex;justify-content:space-between;align-items:end;gap:24px}.tag{display:inline-block;border:2px solid var(--ink);background:var(--mint);padding:6px 12px;border-radius:20px;font-size:13px;font-weight:750}h1{font-size:clamp(30px,4.8vw,52px);letter-spacing:-1.5px;line-height:1.2;margin:16px 0}header p{color:#626d69;line-height:1.8;margin:0}.stamp{flex-shrink:0;border:2px solid var(--ink);border-radius:50%;width:86px;height:86px;display:grid;place-content:center;background:var(--gold);text-align:center;rotate:8deg;font-size:13px}.stamp strong{font-size:30px}.stage{background:white;border:3px solid var(--ink);border-radius:22px;overflow:hidden;box-shadow:8px 9px 0 #ded5c0}video{display:block;width:100%;aspect-ratio:16/9;background:var(--paper)}.controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:16px 20px;background:#fff;border-top:2px solid var(--ink)}button{border:2px solid var(--ink);border-radius:12px;padding:10px 19px;background:var(--gold);color:var(--ink);font:700 15px inherit;font-family:inherit;cursor:pointer}button:hover{transform:translateY(-1px)}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #326cba;outline-offset:4px}button.secondary{background:var(--paper)}label{display:flex;align-items:center;gap:7px;font-size:14px}input{accent-color:var(--ink);width:17px;height:17px}.status{margin-left:auto;font-size:13px;color:#626d69}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}.step{padding:22px;border:2px solid var(--ink);border-radius:17px;background:#fffdf6}.step:nth-child(2){background:#f0f7f2}.step:nth-child(3){background:#eef5fa}.step span{font-size:12px;font-weight:800;letter-spacing:1px}.step h2{font-size:20px;margin:12px 0 8px}.step p{font-size:14px;color:#626d69;line-height:1.7;margin:0}footer{margin-top:28px;display:flex;justify-content:space-between;gap:18px;color:#66716b;font-size:12px;line-height:1.8}.error{padding:12px 20px;background:#ffeddc;margin:0}.hidden{display:none}@media(max-width:640px){main{padding:22px 16px 32px}header{margin-top:34px}.stamp{display:none}.steps{grid-template-columns:1fr;gap:10px}.step{padding:17px}.step h2{margin:7px 0}.controls{padding:12px;gap:10px}.status{width:100%;margin:0}footer{flex-direction:column;gap:8px}.stage{box-shadow:4px 5px 0 #ded5c0;border-radius:14px}}
+</style>
+</head>
+<body><main>
+<nav><div class="brand">RAG MOTION ✦</div><a class="repo" href="https://github.com/Olandooooes/rag-motion-starter">查看 GitHub 源码 ↗</a></nav>
+<header><div><span class="tag">可编辑的卡通科普动画</span><h1>知识，怎样变成答案？</h1><p>从一叠资料，到一条有出处的回答。<br>点击播放，用五秒看知识流动起来。</p></div><div class="stamp"><strong>5s</strong>无需安装</div></header>
+<section class="stage" aria-label="五秒动画播放器">
+<video id="demo" controls playsinline muted preload="metadata" poster="assets/poster.png" aria-label="RAG 五秒无声卡通动画"><source src="assets/demo-silent.mp4" type="video/mp4">你的浏览器不支持视频播放，请下载下方 MP4。</video>
+<div class="controls"><button id="play" type="button">播放动画</button><button id="replay" class="secondary" type="button">从头重播 ↻</button><label><input id="loop" type="checkbox">循环播放</label><span id="status" class="status" role="status">5 秒 · 无声示例 · 含字幕</span></div>
+<p id="error" class="error hidden" role="alert">视频未能加载。请稍后重试，或<a href="assets/demo-silent.mp4" download>下载 MP4</a>。</p>
+</section>
+<section class="steps" aria-label="动画讲了什么">
+<article class="step"><span>01 / RETRIEVE</span><h2>先查资料</h2><p>从知识库中寻找与问题相关的片段，筛掉无关内容和过期版本。</p></article>
+<article class="step"><span>02 / AUGMENT</span><h2>整理证据</h2><p>把可用的资料作为上下文提供给模型，同时保留来源信息。</p></article>
+<article class="step"><span>03 / GENERATE</span><h2>带着证据回答</h2><p>生成回答并展示引用；引用方便核查，并不保证答案一定正确。</p></article>
+</section>
+<footer><div>这是动画演示，排序条不是统计图；制度与“30 天”均为虚构教学案例。<br>默认无声，你可以在源码项目中替换为自己的配音。</div><div><a href="assets/demo-silent.mp4" download>下载五秒视频</a> · <a href="https://github.com/Olandooooes/rag-motion-starter#readme">安装与制作教程</a><br>项目原创内容采用 MIT；第三方依赖适用各自许可。</div></footer>
+</main><script>
+const video=document.getElementById('demo');const play=document.getElementById('play');const status=document.getElementById('status');
+async function start(){try{await video.play()}catch{status.textContent='未能开始播放，请使用视频内置播放键重试。'}}
+play.addEventListener('click',()=>{if(video.paused){if(video.ended)video.currentTime=0;start()}else video.pause()});
+document.getElementById('replay').addEventListener('click',()=>{video.currentTime=0;start()});
+document.getElementById('loop').addEventListener('change',event=>{video.loop=event.target.checked});
+video.addEventListener('play',()=>{play.textContent='暂停动画';status.textContent='正在播放 · 无声示例'});
+video.addEventListener('pause',()=>{play.textContent=video.ended?'再看一遍':'继续播放';status.textContent=video.ended?'播放完成 · 5 秒':'已暂停 · 无声示例'});
+video.addEventListener('ended',()=>{play.textContent='再看一遍';status.textContent='播放完成 · 5 秒'});
+video.addEventListener('error',()=>document.getElementById('error').classList.remove('hidden'));
+</script></body></html>

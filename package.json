@@ -12,7 +12,8 @@
     "check": "tsc --noEmit && node --test scripts/*.test.mjs",
     "render": "remotion render src/index.ts RAG-FiveSecond examples/demo-silent.mp4 --codec h264 --crf 20 --concurrency 2",
     "render:voice": "remotion render src/index.ts RAG-FiveSecond out/demo-voice.mp4 --props examples/with-voice.json --codec h264 --crf 20 --concurrency 2",
-    "voice:import": "node scripts/import-voice.mjs"
+    "voice:import": "node scripts/import-voice.mjs",
+    "demo:build": "node scripts/build-demo.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.537",

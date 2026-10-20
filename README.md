@@ -2,6 +2,8 @@
 
 用 React、SVG 和 Remotion 制作可编辑的 RAG 科普动效：资料页 → 检索排序条 → 证据卡 → 带引用的回答。不是逐帧调用视频生成模型；浏览器按时间计算图形，再编码成视频。
 
+**[▶ 在线演示：无需安装，直接观看五秒动画](https://olandooooes.github.io/rag-motion-starter/)**
+
 ![动画封面](examples/poster.png)
 
 [查看五秒无声示例](https://github.com/Olandooooes/rag-motion-starter/raw/refs/heads/main/examples/demo-silent.mp4)
@@ -91,3 +93,16 @@ npm run dev -- --props=examples/with-voice.json
 ## 本地验收记录
 
 已在 macOS、Node 24 环境完成锁文件安装（`npm ci`）、TypeScript 检查及 3 项导入参数测试；在 Studio 检查布局，并完成无声与替换测试音两条完整导出链路。无声样片实测 5.000 秒、1280×720、30 fps，无音轨；带测试音的 MP4 因 AAC 编码尾帧为约 5.013 秒。测试音和测试成片不随源码分发。其他操作系统尚未实机验证。
+
+
+## 在线演示与 GitHub Pages
+
+演示页提供播放、暂停、重播、循环播放和 MP4 下载，适配手机；不自动播放、不收集数据，也不依赖在线 TTS 或第三方 CDN。演示使用仓库的五秒无声成片，无需在访客设备上安装 Remotion。
+
+```sh
+npm run demo:build
+# 使用任意静态服务器预览 dist/；例如已安装 Python 时：
+python3 -m http.server 8080 --directory dist --bind 127.0.0.1
+```
+
+`docs/index.html` 是页面源文件。构建脚本将页面和示例视频、封面复制到 `dist/`，没有再次渲染视频，也无需安装 npm 依赖。GitHub Pages 使用 `.github/workflows/pages.yml` 部署，在更新页面或样例素材后自动刷新。Fork 后，请在 Settings → Pages 中将 Source 设置为 GitHub Actions，并替换 README 和页面中的原仓库链接。
