@@ -1,12 +1,16 @@
-# RAG Motion Starter · 五秒卡通动画
+# Cartoon Video Starter · 卡通视频制作模板
 
-用 React、SVG 和 Remotion 制作可编辑的 RAG 科普动效：资料页 → 检索排序条 → 证据卡 → 带引用的回答。不是逐帧调用视频生成模型；浏览器按时间计算图形，再编码成视频。
+一个用 React、SVG 和 Remotion 制作卡通视频的可编辑起点：编排图形变化、字幕和声音，再导出 MP4。适用于知识讲解、产品介绍、流程演示等主题。**RAG 只是仓库内置的五秒教学样例，不是这个项目的使用范围。**
 
-**[▶ 在线演示：无需安装，直接观看五秒动画](https://olandooooes.github.io/rag-motion-starter/)**
+当前版本是代码驱动的视频制作模板，加上可在网页中替换录音的演示播放器；尚不包含拖拽剪辑、多轨时间线或输入文本自动生成完整视频。动画由浏览器逐帧计算后编码，不是逐帧调用视频生成模型。
+
+制作其他主题时：写口播与分镜 → 修改示例组件的文字和 SVG 图形 → 调整关键帧及字幕时间 → 导入录音 → 预览并导出。`src/FiveSecond.tsx` 是可替换的示例场景，`src/config.ts` 定义字幕和声音参数；可新增场景组件并注册为其他 Composition。当前演示仍固定五秒，延长时需同步调整场景、参数校验和配音时间。
+
+**[▶ 在线演示：无需安装，直接观看五秒动画](https://olandooooes.github.io/cartoon-video-starter/)**
 
 ![动画封面](examples/poster.png)
 
-[查看五秒无声示例](https://github.com/Olandooooes/rag-motion-starter/raw/refs/heads/main/examples/demo-silent.mp4)
+[查看五秒无声示例](https://github.com/Olandooooes/cartoon-video-starter/raw/refs/heads/main/examples/demo-silent.mp4)
 
 - 1280 × 720，30 fps，150 帧，5 秒。
 - 默认无声；保留字幕，可自行录音或使用有权使用的配音。
@@ -18,8 +22,8 @@
 安装 Node.js 22.13+（22 系列）或 Node.js 24+；也支持 20.19+（20 系列）。建议使用 Node 24。
 
 ```sh
-git clone https://github.com/Olandooooes/rag-motion-starter.git
-cd rag-motion-starter
+git clone https://github.com/Olandooooes/cartoon-video-starter.git
+cd cartoon-video-starter
 npm ci
 npm run check
 npm run dev
@@ -106,3 +110,9 @@ python3 -m http.server 8080 --directory dist --bind 127.0.0.1
 ```
 
 `docs/index.html` 是页面源文件。构建脚本将页面和示例视频、封面复制到 `dist/`，没有再次渲染视频，也无需安装 npm 依赖。GitHub Pages 使用 `.github/workflows/pages.yml` 部署，在更新页面或样例素材后自动刷新。Fork 后，请在 Settings → Pages 中将 Source 设置为 GitHub Actions，并替换 README 和页面中的原仓库链接。
+
+### 在网页中替换配音
+
+打开在线演示，在“换成你的声音”中选择本地录音，再点击“播放动画”，无需改代码。可调整录音音量和延迟开始时间（0–4.9 秒）；暂停、拖动进度、变速和循环重播时，录音按视频时间重新同步。切换到后台时暂停播放。建议使用约 5 秒的 MP3 或 WAV；支持格式取决于浏览器，文件上限 25 MB、解码时长上限 5 分钟。较短录音播放结束后无声，较长录音在片尾停止。
+
+音频通过浏览器 Web Audio API 在本机解码，不发送到服务器，也不保存到账号或浏览器存储；刷新后需重新选择。此功能只做同步试听，不修改原视频或字幕，下载的仍是无声 MP4。如需导出合成配音的视频，请使用上面的本地渲染教程。

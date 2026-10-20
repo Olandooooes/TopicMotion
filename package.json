@@ -1,9 +1,9 @@
 {
-  "name": "rag-motion-starter",
+  "name": "cartoon-video-starter",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
-  "description": "A five-second cartoon RAG animation with replaceable narration",
+  "description": "Editable cartoon video starter with motion graphics, narration and browser previews",
   "engines": {
     "node": "^20.19.0 || ^22.13.0 || >=24"
   },
@@ -28,17 +28,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Olandooooes/rag-motion-starter.git"
+    "url": "https://github.com/Olandooooes/cartoon-video-starter.git"
   },
-  "homepage": "https://github.com/Olandooooes/rag-motion-starter#readme",
+  "homepage": "https://github.com/Olandooooes/cartoon-video-starter#readme",
   "bugs": {
-    "url": "https://github.com/Olandooooes/rag-motion-starter/issues"
+    "url": "https://github.com/Olandooooes/cartoon-video-starter/issues"
   },
   "keywords": [
-    "rag",
+    "cartoon",
+    "video",
     "remotion",
     "animation",
-    "education",
+    "motion-graphics",
     "react",
     "typescript"
   ]
