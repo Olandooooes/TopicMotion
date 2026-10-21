@@ -1,35 +1,42 @@
+import {t,setMessage,getLanguage} from './i18n.mjs?v=i18n-1';
 const topic=document.getElementById('prompt-topic');
 const style=document.getElementById('prompt-style');
 const duration=document.getElementById('prompt-duration');
 const result=document.getElementById('prompt-result');
 const status=document.getElementById('prompt-status');
-function update(){result.value=`用 $auto-video 把“${topic.value.trim()||'你的话题'}”做成 ${duration.value} 秒${style.value}讲解视频，自动完成资料核验、口播稿、分镜、配音、字幕与 MP4 成片。`;}
+const installationGuide=document.querySelector('.prompt-panel a[href*="#quick-start"]');
+function update(){result.value=t('prompt.template',{topic:topic.value.trim()||t('prompt.fallbackTopic'),seconds:duration.value,style:t(`style.${style.value}`)});}
+function languageUpdate(){
+ if(['What is RAG?','RAG 是什么'].includes(topic.value))topic.value=t('prompt.defaultTopic');
+ installationGuide.href=`https://github.com/Olandooooes/TopicMotion${getLanguage()==='zh'?'/blob/main/README.zh-CN.md#安装与第一次使用':'#quick-start'}`;
+ update();
+}
 for(const input of [topic,style,duration])input.addEventListener('input',update);
-update();
+document.addEventListener('topicmotion:languagechange',languageUpdate);
+languageUpdate();
 document.getElementById('copy-prompt').addEventListener('click',async()=>{
- try {await navigator.clipboard.writeText(result.value);status.textContent='已复制。请粘贴到安装了 Skill 的 Codex 对话中。';}
- catch {result.focus();result.select();status.textContent='浏览器未允许自动复制，指令已选中，请手动复制。';}
+ try{await navigator.clipboard.writeText(result.value);setMessage(status,'copy.ok');}
+ catch{result.focus();result.select();setMessage(status,'copy.manual');}
 });
-for(const video of document.querySelectorAll('video')) video.addEventListener('play',()=>{
+for(const video of document.querySelectorAll('video'))video.addEventListener('play',()=>{
  for(const other of document.querySelectorAll('video'))if(other!==video)other.pause();
 });
-
-// Only the introduction preloads. Other demos wait for a deliberate play.
+// Only the introduction preloads. Language changes never replace video elements.
 const intro=document.getElementById('project-intro');
 const introStatus=document.getElementById('intro-status');
 const retry=document.getElementById('intro-retry');
 let slowTimer;
-function ready(){clearTimeout(slowTimer);retry.classList.add('hidden');introStatus.textContent=intro.paused?'已就绪 · 点击播放，含中文口播和字幕':'正在播放 · 中文口播与同步字幕';}
+function ready(){clearTimeout(slowTimer);retry.classList.add('hidden');setMessage(introStatus,intro.ended?'intro.ended':intro.paused?'intro.ready':'intro.playing');}
 function waiting(){
- clearTimeout(slowTimer);introStatus.textContent='正在缓冲…';
- slowTimer=setTimeout(()=>{if(intro.readyState<3){introStatus.textContent='连接较慢，可重新加载，或下载原版 MP4。';retry.classList.remove('hidden');}},12000);
+ clearTimeout(slowTimer);setMessage(introStatus,'intro.waiting');
+ slowTimer=setTimeout(()=>{if(intro.readyState<3){setMessage(introStatus,'intro.slow');retry.classList.remove('hidden');}},12000);
 }
 intro.addEventListener('loadstart',waiting);
 intro.addEventListener('waiting',waiting);
 intro.addEventListener('canplay',ready);
 intro.addEventListener('playing',ready);
 intro.addEventListener('pause',()=>{if(intro.readyState>=3)ready();});
-intro.addEventListener('ended',()=>{introStatus.textContent='播放完成 · 可从头重播';});
-intro.addEventListener('error',()=>{clearTimeout(slowTimer);introStatus.textContent='视频加载失败，请重新加载，或下载原版 MP4。';retry.classList.remove('hidden');});
-retry.addEventListener('click',async()=>{intro.load();try{await intro.play();}catch{introStatus.textContent='请点击视频内的播放键。';}});
+intro.addEventListener('ended',()=>setMessage(introStatus,'intro.ended'));
+intro.addEventListener('error',()=>{clearTimeout(slowTimer);setMessage(introStatus,'intro.error');retry.classList.remove('hidden');});
+retry.addEventListener('click',async()=>{intro.load();try{await intro.play();}catch{setMessage(introStatus,'intro.click');}});
 if(intro.readyState>=3)ready();else waiting();

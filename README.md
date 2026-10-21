@@ -150,7 +150,7 @@ npm run demo:build
 python3 -m http.server 8080 --directory dist --bind 127.0.0.1
 ```
 
-The Pages workflow deploys the static site, public examples and Skill downloads. For a fork, select **Settings → Pages → GitHub Actions** and update repository links. The site has no third-party CDN, online TTS or analytics script. Its interface and existing videos are currently Chinese.
+The Pages workflow deploys the static site, public examples and Skill downloads. For a fork, select **Settings → Pages → GitHub Actions** and update repository links. The site has no third-party CDN, online TTS or analytics script. The interface defaults to English and can switch to Chinese; the choice is remembered locally. Use `?lang=en` or `?lang=zh` for an explicit language link. Existing videos retain their Chinese narration and subtitles.
 
 ## Development
 

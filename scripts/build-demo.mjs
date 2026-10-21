@@ -3,7 +3,7 @@ import {fileURLToPath} from 'node:url';
 const root = new URL('../', import.meta.url);
 const target = new URL('dist/', root);
 await mkdir(new URL('assets/', target), {recursive:true});
-for (const name of ['index.html','demo.js','timeline.mjs','showcase.js']) await copyFile(new URL(`docs/${name}`,root),new URL(name,target));
+for (const name of ['index.html','demo.js','timeline.mjs','showcase.js','i18n.mjs','messages.mjs']) await copyFile(new URL(`docs/${name}`,root),new URL(name,target));
 for (const name of ['demo-silent.mp4','poster.png']) await copyFile(new URL(`examples/${name}`,root),new URL(`assets/${name}`,target));
 await mkdir(new URL('assets/auto-video/',target),{recursive:true});
 for(const name of ['bread-15s-silent.mp4','bread-poster.png','http-cache-15s-silent.mp4','http-cache-poster.png','rag-60s-silent.mp4','poster-60s.png','rag-15s-silent.mp4','poster.png','cartoon.png','diagram.png','editorial.png']) await copyFile(new URL(`examples/auto-video/${name}`,root),new URL(`assets/auto-video/${name}`,target));
