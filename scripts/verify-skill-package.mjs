@@ -12,5 +12,5 @@ for(const name of Object.keys(manifest.dependencies)){
  if(!path.startsWith(root+sep))throw new Error('依赖借用了 Skill 目录之外的安装：'+name);
 }
 const {validateJob}=await import(pathToFileURL(join(root,'assets/renderer/validate.mjs')));
-for(const name of ['rag-15s.json','rag-60s.json'])validateJob(JSON.parse(await readFile(join(root,'examples',name),'utf8')));
+for(const name of ['rag-15s.json','rag-60s.json','bread-15s.json','http-cache-15s.json'])validateJob(JSON.parse(await readFile(join(root,'examples',name),'utf8')));
 console.log('Independent Skill package: dependencies, licenses and example validated.');

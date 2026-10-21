@@ -11,7 +11,7 @@ import {naturalTimeline} from './natural.mjs';
 const run=promisify(execFile), require=createRequire(import.meta.url);
 const engine=dirname(fileURLToPath(import.meta.url));
 const args=process.argv.slice(2), flags={};
-for(let i=0;i<args.length;i+=2){if(!['--job','--out','--browser'].includes(args[i])||!args[i+1])throw new Error('用法: --job job.json --out 输出目录 [--browser Chrome路径]');flags[args[i].slice(2)]=args[i+1];}
+for(let i=0;i<args.length;i+=2){if(!['--job','--out','--browser','--cache'].includes(args[i])||!args[i+1])throw new Error('用法: --job job.json --out 输出目录 [--browser Chrome路径]');flags[args[i].slice(2)]=args[i+1];}
 if(!flags.job||!flags.out)throw new Error('必须提供 --job 和 --out。');
 if(process.platform!=='darwin')throw new Error('当前语音适配器使用 macOS say；其他系统需要先实现本地 TTS 适配器，不能静默生成无声成片。');
 const job=validateJob(JSON.parse(await readFile(resolve(flags.job),'utf8')));
@@ -25,7 +25,7 @@ const binaryDir=dirname(require.resolve(`@remotion/compositor-${process.platform
 const mediaEnv={...process.env,DYLD_LIBRARY_PATH:binaryDir};
 const ffprobe=join(binaryDir,'ffprobe');
 async function mediaLength(path){const r=await run(ffprobe,['-v','quiet','-show_entries','format=duration','-of','csv=p=0',path],{env:mediaEnv});return Number(r.stdout.trim());}
-const {scenes,srt,frames:from,narrator}=await naturalTimeline({job,engine,assets,binaryDir,mediaEnv});
+const {scenes,srt,frames:from,narrator,cache}=await naturalTimeline({job,engine,assets,binaryDir,mediaEnv,cacheDir:flags.cache?resolve(flags.cache):undefined});
 const inputProps={...job,scenes};
 await writeFile(join(out,'timeline.json'),JSON.stringify(inputProps,null,2));
 await writeFile(join(out,'captions.srt'),srt);
@@ -45,6 +45,6 @@ for(const style of ['cartoon','diagram','editorial']){
  await renderStill({composition:styleComposition,serveUrl,inputProps:styleProps,browserExecutable:browser,output:join(out,'style-previews',`${style}.png`),frame:Math.min(from-1,Math.floor(from*.4)),imageFormat:'png'});
 }
 const measured=await mediaLength(join(out,'movie.mp4'));
-await writeFile(join(out,'report.json'),JSON.stringify({topic:job.topic,style:job.style,requestedSeconds:job.duration,actualSeconds:measured,frames:from,fps:30,width:1280,height:720,narrator,sourceNotes:job.sources||[],createdAt:new Date().toISOString()},null,2));
+await writeFile(join(out,'report.json'),JSON.stringify({topic:job.topic,style:job.style,requestedSeconds:job.duration,actualSeconds:measured,frames:from,fps:30,width:1280,height:720,narrator,cache,sourceNotes:job.sources||[],createdAt:new Date().toISOString()},null,2));
 await rm(join(out,'bundle'),{recursive:true,force:true});
 console.log(`[完成] ${join(out,'movie.mp4')} (${measured.toFixed(3)}s)`);

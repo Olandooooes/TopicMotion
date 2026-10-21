@@ -127,3 +127,20 @@ RAG 事实来自公开论文的通俗改写。图中排序条不代表实测统�
 默认中文神经配音慢 12%，句间停顿 0.32 秒，按实际音长分配场景。文案过长会要求缩短，不加速或切断口播。字幕为句级测时和字数分段估计。首次自动安装 edge-tts 7.3.1；可用 `AUTO_VIDEO_TTS_PYTHON` 指定已有环境。在线服务可用性与许可由其提供方决定，不能保证永久免密钥可用。
 
 六种动效支持卡片拆分归档、排序筛选、输入汇聚、资料变回答、引用出现与总结聚合；全部按场景时长缩放。三种风格共享动效，切换配色。换话题时由 Codex 重写分镜字段，程序不含固定 RAG 文案。可复现分镜见 [一分钟任务](skills/auto-video/examples/rag-60s.json)。本地另用“面包为什么会发起来”验证相同流程。
+
+## v0.4：画面解释机制，失败后复用配音
+
+新增面团发酵与HTTP缓存两种解释型动画，分别表现内部气泡膨胀和命中/回源分支；它们不是相同卡片换文字。示例分镜：[发酵](skills/auto-video/examples/bread-15s.json)、[HTTP缓存](skills/auto-video/examples/http-cache-15s.json)。普通话题仍可使用原六种通用动效。
+
+默认缓存成功的每句声音到 Skill `assets/renderer/.voice-cache/`，可用 `--cache /私密目录` 指定位置。缓存包含原文和音频，保持本地；默认目录不进Git、安装包或ZIP。文本或声音设置改变会生成新声音，只改风格或总时长可复用。损坏项不会命中，全部命中时不启动Python或联系TTS。
+
+失败后无需删除原文件，使用新输出目录重试：
+
+```sh
+node skills/auto-video/scripts/render.mjs \
+  --job skills/auto-video/examples/bread-15s.json \
+  --out out/bread-retry \
+  --cache /tmp/my-private-video-cache
+```
+
+必须沿用失败任务的缓存路径；首次也应传同一个 `--cache`，或两次都不传以使用默认位置。只复用配音，动画仍完整渲染；不是从某一视频帧继续。非空输出目录继续拒绝覆盖。`report.json.cache` 显示命中与新生成数。需清理时，只删除自己确认的缓存目录，下次会重新生成声音。

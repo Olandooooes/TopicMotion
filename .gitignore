@@ -11,3 +11,5 @@ examples/with-voice.json
 skills/**/node_modules/
 skills/**/public/jobs/
 skills/**/.venv-tts/
+skills/**/.voice-cache/
+NIGHT-RUN-STATUS.md

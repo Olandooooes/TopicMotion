@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill,Audio,CanvasImage,Composition,Easing,interpolate,registerRoot,Sequence,staticFile,useCurrentFrame,useVideoConfig} from 'remotion';
-type Scene={note?:string;detail?:string;result?:string;sourceLabel?:string;title:string;visual:string;labels:string[];startFrame:number;durationInFrames:number;audioSrc:string;captions:{text:string;from:number;to:number}[]};
+type Scene={phaseSplitFrame?:number;note?:string;detail?:string;result?:string;sourceLabel?:string;title:string;visual:string;labels:string[];startFrame:number;durationInFrames:number;audioSrc:string;captions:{text:string;from:number;to:number}[]};
 type Movie={topic:string;style:string;duration:number;scenes:Scene[]};
 const palettes:Record<string,typeof base>={cartoon:null as unknown as typeof base};
 const base={ink:'#283d42',paper:'#fff9ed',gold:'#ffd36e',mint:'#b9dfce',blue:'#bfdaf0',peach:'#f8b8a0',muted:'#71837b'};
@@ -24,6 +24,32 @@ function SceneView({scene,index,topic,style}:{scene:Scene;index:number;topic:str
   <div style={{position:'absolute',right:62,top:30,display:'flex',gap:8}}>{labels.map((s,i)=><span key={s} style={{padding:'6px 10px',borderRadius:20,background:i===index?C.ink:'#ebe9db',color:i===index?'#fff9ed':C.muted,fontSize:12,fontWeight:700}}>{s}</span>)}</div>
   <h1 style={{position:'absolute',left:62,right:50,top:96,margin:0,fontSize:scene.title.length>14?48:55,lineHeight:1.25,letterSpacing:-1,opacity:intro,transform:`translateY(${(1-intro)*20}px)`}}>{scene.title}</h1>
   <svg width="1280" height="720" viewBox="0 0 1280 720" style={{position:'absolute',inset:0}} aria-label={scene.title}>
+   {scene.visual==='fermentation'&&(()=>{
+    const grow=r(1.5,8.2),sx=1+grow*.28,sy=1+grow*.22;
+    return <g>
+     <defs><clipPath id={`dough-${index}`}><ellipse cx="640" cy="385" rx={320*sx} ry={105*sy}/></clipPath></defs>
+     <ellipse cx="640" cy="385" rx={320*sx} ry={105*sy} fill={C.gold} stroke={C.ink} strokeWidth="4"/>
+     <g clipPath={`url(#dough-${index})`}>
+      {[0,1,2,3,4].map(j=><path key={j} d={`M${345+j*125} 220 Q${430+j*100} 385 ${340+j*140} 550`} fill="none" stroke="#b78d45" strokeWidth="2" opacity=".45"/>)}
+      {[0,1,2,3,4,5,6].map(j=>{const x=425+(j%4)*130,y=345+Math.floor(j/4)*85;return <g key={j}><circle cx={x} cy={y} r={7+grow*(17+j%3*6)} fill={C.paper} stroke={C.ink} strokeWidth="2"/><circle cx={x+37} cy={y+20} r="5" fill={C.peach} stroke={C.ink}/><circle cx={lerp((t*.3+j*.13)%1,x+37,x)} cy={lerp((t*.3+j*.13)%1,y+20,y)} r="3" fill={C.blue}/></g>})}
+     </g>
+     <Label x={640} y={552} text={scene.result||'发起的面团'} size={26} anchor="middle"/>
+     {scene.labels.map((label,j)=><Label key={j} x={220+j*410} y={235} text={label} size={23} maxWidth={340} anchor="middle"/>)}
+    </g>;
+   })()}
+   {scene.visual==='cache'&&(()=>{
+    const split=scene.phaseSplitFrame!==undefined?scene.phaseSplitFrame/scene.durationInFrames*10:5;const miss=t>=split,phase=miss?(t-split)/(10-split):t/split,request=Math.min(1,phase*2),back=Math.max(0,Math.min(1,(phase-.5)*2));
+    return <g>
+     {[180,640,1100].map((x,j)=><Sheet key={j} x={x-125} y={290} w={250} h={165} fill={[C.blue,C.gold,C.mint][j]}><Label x={x} y={350} text={word(j)} size={29} maxWidth={215} anchor="middle"/><Label x={x} y={404} text={j===1?(miss?'没有副本':'新鲜副本'):j===0?'发出请求':'提供响应'} size={21} anchor="middle"/></Sheet>)}
+     <Arrow d="M315 325 H495 l-9 -9 m9 9 l-9 9"/>
+     <Arrow d="M495 422 H315 l9 -9 m-9 9 l9 9"/>
+     <g opacity={miss?1:.14}><Arrow d="M775 325 H955 l-9 -9 m9 9 l-9 9"/><Arrow d="M955 422 H775 l9 -9 m-9 9 l9 9"/></g>
+     <circle cx={lerp(request,315,miss?955:495)} cy="325" r="9" fill={C.peach} stroke={C.ink}/>
+     <circle cx={lerp(back,miss?955:495,315)} cy="422" r="9" fill={C.blue} stroke={C.ink} opacity={back>0?1:0}/>
+     <Label x={640} y={235} text={miss?'未命中：向源站获取':'命中：直接使用新鲜副本'} size={30} anchor="middle"/>
+     <Label x={640} y={525} text={miss?(scene.result||'响应按缓存规则保存'):(scene.detail||'此时无需向源站获取正文')} size={25} anchor="middle"/>
+    </g>;
+   })()}
    {scene.visual==='hook'&&(()=>{
     const shift=r(3.8,5.2),a=r(.45,1.1),better=r(4.8,5.8);
     return <g>
