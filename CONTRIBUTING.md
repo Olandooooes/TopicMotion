@@ -1,10 +1,16 @@
-# 参与修改
+# Contributing to TopicMotion
 
-先运行 `npm ci` 和 `npm run check`，按改动范围选择验证：
+English | [简体中文](CONTRIBUTING.zh-CN.md)
 
-- 修改 Skill、分镜格式或自动渲染器：在 macOS 用内置 RAG 任务输出到全新目录，检查声音、字幕、场景时长和报告。不要只验证旧五秒样片。必要时增加行为测试，避免单纯匹配文字的测试。
-- 修改最初五秒动画：在 Studio 检查开头、排序、证据卡、回答与片尾。
-- 修改网页：运行 `npm run skill:pack`、`npm run demo:build`，验证 15 秒样片、指令复制、Skill 下载和五秒录音试听入口。
-- 修改独立 Skill：重新打包，确保源码 ZIP 不含 node_modules、系统声音、用户素材或凭据。CI 会在临时目录独立安装锁定依赖。
+Contributions are welcome. Start with `npm ci` and `npm run check`, then validate the behavior affected by your change.
 
-新增素材或依赖时补齐 SOURCES.md 和相应许可说明。投稿的原创贡献按项目 MIT 提供；不要提交未经授权的配音、客户资料或密钥。
+- **Skill, storyboard format or automatic renderer:** render a bundled RAG job on macOS into a new output directory. Check narration, captions, scene duration and the report—not just the original five-second demo. Add behavioral tests when they protect an important invariant; avoid tests that only match wording.
+- **Original five-second animation:** inspect the opening, ranking, evidence cards, answer and ending in Remotion Studio.
+- **Website:** run `npm run skill:pack` and `npm run demo:build`. Verify the voiced introduction, other samples, prompt copying, Skill download and five-second recording preview. Only the introduction should preload.
+- **Standalone Skill package:** rebuild the ZIPs. Exclude `node_modules`, private caches, system voice tracks, user assets and credentials. CI installs the locked dependencies into an isolated directory.
+
+For a useful issue, include your OS, Node/Python versions, the command or Skill request, expected and actual behavior, and a sanitized error log. Include a minimal storyboard when relevant. Keep private narration, credentials and customer information out of issues and pull requests.
+
+Describe the concrete problem, resulting behavior and relevant validation in your pull request. For new assets or dependencies, update `SOURCES.md` and the applicable license notices. Original contributions are provided under the project's MIT license; do not submit voice tracks or other material without redistribution rights.
+
+The full voice workflow is currently validated on macOS with Chinese narration. If you add a new platform or voice language, document its requirements and demonstrate an actual render before claiming support.
