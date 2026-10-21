@@ -12,6 +12,6 @@ for(const name of ['auto-video.zip','topicmotion.zip','SHA256SUMS']) await copyF
 
 
 await mkdir(new URL('assets/topicmotion-intro/',target),{recursive:true});
-for(const name of ['topicmotion-intro-30s.mp4','poster.png','captions.srt'])await copyFile(new URL(`examples/topicmotion-intro/${name}`,root),new URL(`assets/topicmotion-intro/${name}`,target));
+for(const name of ['topicmotion-intro-30s.mp4','intro-web-v1.mp4','poster.png','captions.srt'])await copyFile(new URL(`examples/topicmotion-intro/${name}`,root),new URL(`assets/topicmotion-intro/${name}`,target));
 
 console.log(`Static demo ready: ${fileURLToPath(target)}`);

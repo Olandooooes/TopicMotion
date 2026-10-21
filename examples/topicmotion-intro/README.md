@@ -27,3 +27,7 @@ npm run intro:render -- --voice-dir out/intro-voice --out out/intro-render
 音频目录和渲染输出均必须是新的空目录，避免覆盖原文件。模型仅首次下载，可通过HF_HOME指定本地缓存位置。语音依赖不是普通 `$auto-video` 的新增必装项，本目录仅复现公开介绍片。输出 `movie.mp4`、`poster.png`、`captions.srt`、`script.txt`、`timeline.json` 和实测报告。
 
 普通 `$auto-video` 默认仍使用 Edge；Kokoro 仅用于这条公开项目介绍片。
+
+## 网页播放版
+
+首页使用 `intro-web-v1.mp4`：720p/30fps、H.264 4:2:0、每秒关键帧、AAC单声道64kbps，MP4索引前置。文件1,602,290字节，比原版2,471,731字节减少35.2%；原版下载保留。运行 `node scripts/optimize-intro.mjs` 可从原版重新编码。首页仅预加载介绍片，其他样片点击后才加载；慢连接显示重试和原版下载入口。实际速度仍受访客至GitHub Pages的网络影响。

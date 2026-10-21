@@ -13,3 +13,23 @@ document.getElementById('copy-prompt').addEventListener('click',async()=>{
 for(const video of document.querySelectorAll('video')) video.addEventListener('play',()=>{
  for(const other of document.querySelectorAll('video'))if(other!==video)other.pause();
 });
+
+// Only the introduction preloads. Other demos wait for a deliberate play.
+const intro=document.getElementById('project-intro');
+const introStatus=document.getElementById('intro-status');
+const retry=document.getElementById('intro-retry');
+let slowTimer;
+function ready(){clearTimeout(slowTimer);retry.classList.add('hidden');introStatus.textContent=intro.paused?'已就绪 · 点击播放，含中文口播和字幕':'正在播放 · 中文口播与同步字幕';}
+function waiting(){
+ clearTimeout(slowTimer);introStatus.textContent='正在缓冲…';
+ slowTimer=setTimeout(()=>{if(intro.readyState<3){introStatus.textContent='连接较慢，可重新加载，或下载原版 MP4。';retry.classList.remove('hidden');}},12000);
+}
+intro.addEventListener('loadstart',waiting);
+intro.addEventListener('waiting',waiting);
+intro.addEventListener('canplay',ready);
+intro.addEventListener('playing',ready);
+intro.addEventListener('pause',()=>{if(intro.readyState>=3)ready();});
+intro.addEventListener('ended',()=>{introStatus.textContent='播放完成 · 可从头重播';});
+intro.addEventListener('error',()=>{clearTimeout(slowTimer);introStatus.textContent='视频加载失败，请重新加载，或下载原版 MP4。';retry.classList.remove('hidden');});
+retry.addEventListener('click',async()=>{intro.load();try{await intro.play();}catch{introStatus.textContent='请点击视频内的播放键。';}});
+if(intro.readyState>=3)ready();else waiting();
