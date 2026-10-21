@@ -20,7 +20,7 @@ function SceneView({scene,index,topic,style}:{scene:Scene;index:number;topic:str
  const labels=[String(index+1).padStart(2,'0'),style];
  const bob=Math.sin(t*2.1)*5;
  return <AbsoluteFill style={{color:C.ink,fontFamily:'"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif',opacity:outro}}>
-  <div style={{position:'absolute',left:62,top:34,maxWidth:850,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",fontSize:17,letterSpacing:2,fontWeight:800,color:C.muted}}>{topic} / AUTO VIDEO</div>
+  <div style={{position:'absolute',left:62,top:34,maxWidth:850,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",fontSize:17,letterSpacing:2,fontWeight:800,color:C.muted}}>{topic} / TopicMotion</div>
   <div style={{position:'absolute',right:62,top:30,display:'flex',gap:8}}>{labels.map((s,i)=><span key={s} style={{padding:'6px 10px',borderRadius:20,background:i===index?C.ink:'#ebe9db',color:i===index?'#fff9ed':C.muted,fontSize:12,fontWeight:700}}>{s}</span>)}</div>
   <h1 style={{position:'absolute',left:62,right:50,top:96,margin:0,fontSize:scene.title.length>14?48:55,lineHeight:1.25,letterSpacing:-1,opacity:intro,transform:`translateY(${(1-intro)*20}px)`}}>{scene.title}</h1>
   <svg width="1280" height="720" viewBox="0 0 1280 720" style={{position:'absolute',inset:0}} aria-label={scene.title}>

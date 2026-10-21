@@ -28,7 +28,7 @@
 
 ## 已做的常规决定
 
-沿用用户确认的 GitHub 账号 Olandooooes、公开仓库及原创内容 MIT 许可。保留现有仓库 URL，避免再次改名导致旧链接失效；产品入口统一为 Auto Video Skill。无需额外申请模型 API，内容生成使用用户现有 Codex 对话模型。默认在本地生成，生成物不自动公开。
+沿用用户确认的 GitHub 账号 Olandooooes、公开仓库及原创内容 MIT 许可。项目现已按用户授权更名 TopicMotion，旧仓库链接使用GitHub重定向，旧Pages使用账号站点兼容页；产品入口统一为 TopicMotion。无需额外申请模型 API，内容生成使用用户现有 Codex 对话模型。默认在本地生成，生成物不自动公开。
 
 ## 待用户决定，当前不阻塞
 

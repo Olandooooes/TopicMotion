@@ -1,8 +1,10 @@
-# Auto Video Skill · 给一个话题，做一条视频
+# TopicMotion · 自动制作动效视频
 
-**在 Codex 里说出话题、风格和时长，自动完成讲稿、分镜、配音、字幕与 MP4 成片。无需另外申请模型 API。**
+**说一个话题，自动做成动效视频。**
 
-[在线演示](https://olandooooes.github.io/cartoon-video-starter/) · [下载 Skill](downloads/auto-video.zip) · [Skill 指令](skills/auto-video/SKILL.md) · [验证与交付记录](DELIVERY.md) · [独立评审记录](REVIEW.md)
+在 Codex 里给出话题、风格和时长，TopicMotion 自动完成讲稿、分镜、自然中文配音、同步字幕与 MP4 渲染。用图形变换、流程演示和机制动画表达内容；卡通只是可选形式之一。无需另配内容模型 API。
+
+[在线演示](https://olandooooes.github.io/TopicMotion/) · [下载 TopicMotion Skill](downloads/topicmotion.zip) · [Skill 指令](skills/auto-video/SKILL.md) · [验证与交付记录](DELIVERY.md) · [独立评审记录](REVIEW.md)
 
 > 用 `$auto-video` 把 RAG 做成 60 秒卡通讲解视频，全自动生成口播、字幕和成片。
 
@@ -28,8 +30,8 @@ flowchart LR
 已验证环境：macOS、Node.js 24、Python 3、Chrome、Edge 中文神经配音（显式选择系统音时为 Tingting）。需要 Node.js 22.13+；建议 Node 24。首次运行可能下载 npm 依赖、Python 配音依赖或浏览器。默认在线神经配音不需 API 密钥，但会发送口播文本；网络失败会明确报错，不静默切换声音。当前其他系统尚未实现自动配音适配器。
 
 ```sh
-git clone https://github.com/Olandooooes/cartoon-video-starter.git
-cd cartoon-video-starter
+git clone https://github.com/Olandooooes/TopicMotion.git
+cd TopicMotion
 npm ci
 npm run skill:install
 ```
@@ -88,7 +90,7 @@ node skills/auto-video/scripts/render.mjs \
 
 ## 在线演示与录音试听
 
-[演示页](https://olandooooes.github.io/cartoon-video-starter/) 包含完整 60 秒连续动效样片、15 秒早期样片、三种风格静帧、Skill 下载和指令生成入口，保留最早五秒形状变换试样。
+[演示页](https://olandooooes.github.io/TopicMotion/) 包含完整 60 秒连续动效样片、15 秒早期样片、三种风格静帧、Skill 下载和指令生成入口，保留最早五秒形状变换试样。
 
 在五秒播放器下选择自己的录音，即可同步试听、调音量与延迟；录音仅在本浏览器读取，不上传、不保存。刷新后需重选。此处不合成新 MP4，下载的仍是无声视频。
 
@@ -144,3 +146,11 @@ node skills/auto-video/scripts/render.mjs \
 ```
 
 必须沿用失败任务的缓存路径；首次也应传同一个 `--cache`，或两次都不传以使用默认位置。只复用配音，动画仍完整渲染；不是从某一视频帧继续。非空输出目录继续拒绝覆盖。`report.json.cache` 显示命中与新生成数。需清理时，只删除自己确认的缓存目录，下次会重新生成声音。
+
+## 名称迁移与兼容
+
+项目已从 `cartoon-video-starter` 更名为 **TopicMotion**，强调自动制作与动效表达。新仓库：`Olandooooes/TopicMotion`；演示：<https://olandooooes.github.io/TopicMotion/>。GitHub 旧仓库网页与Git操作保留平台重定向；不要重新创建同名旧仓库。旧Pages入口由账号站点兼容页跳转，新链接应优先使用上面的地址。
+
+Skill显示名称改为TopicMotion，调用仍为 `$auto-video`，安装目录 `skills/auto-video` 不变，避免破坏既有工作流。新下载名 `topicmotion.zip` 与旧 `auto-video.zip` 为完全相同的安装包，内部仍是 `auto-video/`。旧脚本路径、公开样片路径和本地工程目录保留。历史导出样片中的旧片头不重编码；新生成视频使用TopicMotion片头。
+
+已有用户升级：先审阅并将原 `auto-video` Skill 备份到 `skills/` 目录之外，再安装新包；将个人改动逐项合并，不直接覆盖或公开私密缓存。原有安装不会仅因仓库改名自动升级。本机此次安装版已由维护者核验备份后同步，其他用户请自行执行上述升级步骤。

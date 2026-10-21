@@ -17,5 +17,6 @@ with zipfile.ZipFile(target, 'w', zipfile.ZIP_DEFLATED) as archive:
         info.external_attr = 0o644 << 16
         archive.writestr(info, path.read_bytes())
 digest = hashlib.sha256(target.read_bytes()).hexdigest()
-(target.parent / 'SHA256SUMS').write_text(digest + '  auto-video.zip\n')
+(target.parent / 'topicmotion.zip').write_bytes(target.read_bytes())
+(target.parent / 'SHA256SUMS').write_text(digest + '  auto-video.zip\n' + digest + '  topicmotion.zip\n')
 print(f'{target.name}: {target.stat().st_size} bytes, SHA256 {digest}')

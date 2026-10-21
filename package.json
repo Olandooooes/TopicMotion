@@ -1,6 +1,6 @@
 {
-  "name": "cartoon-video-starter",
-  "version": "0.4.0",
+  "name": "topicmotion",
+  "version": "0.4.1",
   "private": true,
   "license": "MIT",
   "description": "Topic-to-video Codex Skill with automated narration, subtitles and three motion graphic styles",
@@ -32,11 +32,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Olandooooes/cartoon-video-starter.git"
+    "url": "https://github.com/Olandooooes/TopicMotion.git"
   },
-  "homepage": "https://github.com/Olandooooes/cartoon-video-starter#readme",
+  "homepage": "https://github.com/Olandooooes/TopicMotion#readme",
   "bugs": {
-    "url": "https://github.com/Olandooooes/cartoon-video-starter/issues"
+    "url": "https://github.com/Olandooooes/TopicMotion/issues"
   },
   "keywords": [
     "cartoon",

@@ -16,3 +16,10 @@
 - 离线配音导入、自定义字幕和音量、起点参数。
 - 中文安装、预览、渲染及许可说明。
 - TypeScript 检查、导入参数测试和 GitHub Actions 检查流程。
+
+## 0.4.1 — TopicMotion 品牌迁移
+
+- 仓库与产品名称统一为 TopicMotion，突出自动制作与动效视频。
+- 更新 About、README、在线演示、Skill 显示名和新生成视频片头。
+- 保留 `$auto-video`、安装目录、CLI、旧下载包；新增同字节 `topicmotion.zip`。
+- 旧GitHub链接保留平台重定向，旧Pages通过个人站点兼容入口跳转。
