@@ -1,6 +1,6 @@
 {
   "name": "topicmotion",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "private": true,
   "license": "MIT",
   "description": "Topic-to-video Codex Skill with automated narration, subtitles and three motion graphic styles",
@@ -17,7 +17,8 @@
     "skill:install": "node scripts/install-skill.mjs",
     "skill:pack": "python3 scripts/package_skill.py",
     "video:example": "node skills/auto-video/scripts/render.mjs --job skills/auto-video/examples/rag-15s.json --out out/rag-example",
-    "check:renderer": "tsc --noEmit --jsx react-jsx --moduleResolution Bundler --module Preserve --target ES2018 --skipLibCheck --strict skills/auto-video/assets/renderer/src/index.tsx"
+    "check:renderer": "tsc --noEmit --jsx react-jsx --moduleResolution Bundler --module Preserve --target ES2018 --skipLibCheck --strict skills/auto-video/assets/renderer/src/index.tsx",
+    "intro:render": "node scripts/render-intro.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.537",

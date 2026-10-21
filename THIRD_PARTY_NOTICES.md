@@ -20,3 +20,5 @@ npm 锁文件包含传递依赖；各包的 LICENSE/NOTICE 仍适用。若重新
 配音未随项目分发，详见 AUDIO_LICENSE.md。不得把原先本地样片的语音服务授权推定为本仓库 MIT 授权的一部分。
 
 配音适配器首次安装 edge-tts 7.3.1（LGPL-3.0），调用外部在线语音服务；包许可不等于服务输出声音的商用或再分发许可。Python 依赖与声音不打包进 Skill ZIP。机器人及 librarian.svg 均为本项目自制矢量插画。
+
+项目介绍片的可选配音复现依赖 Kokoro 0.9.4 与 `hexgrad/Kokoro-82M-v1.1-zh`（Apache-2.0），并使用 Misaki 中文文本处理等依赖，确切直接版本列于 examples/topicmotion-intro/requirements.txt。仓库不分发其模型权重、Python环境或依赖；生成的中文标准合成音色与原创旁白用于该公开介绍片。各依赖仍保留原许可，详见该目录与 AUDIO_LICENSE.md。

@@ -13,3 +13,4 @@ skills/**/public/jobs/
 skills/**/.venv-tts/
 skills/**/.voice-cache/
 NIGHT-RUN-STATUS.md
+.venv-intro/

@@ -6,6 +6,10 @@
 
 [在线演示](https://olandooooes.github.io/TopicMotion/) · [下载 TopicMotion Skill](downloads/topicmotion.zip) · [Skill 指令](skills/auto-video/SKILL.md) · [验证与交付记录](DELIVERY.md) · [独立评审记录](REVIEW.md)
 
+[![TopicMotion 30秒有声介绍：输入话题、全自动制作、丰富动效](examples/topicmotion-intro/poster.png)](https://olandooooes.github.io/TopicMotion/#intro)
+
+▶ **[播放 30 秒有声项目介绍](https://olandooooes.github.io/TopicMotion/#intro)** · [下载 MP4](examples/topicmotion-intro/topicmotion-intro-30s.mp4) · [同步字幕](examples/topicmotion-intro/captions.srt) · [分镜与配音来源](examples/topicmotion-intro/README.md)
+
 > 用 `$auto-video` 把 RAG 做成 60 秒卡通讲解视频，全自动生成口播、字幕和成片。
 
 ![自动成片示例](examples/auto-video/poster.png)

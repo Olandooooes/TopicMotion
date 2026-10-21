@@ -9,4 +9,9 @@ await mkdir(new URL('assets/auto-video/',target),{recursive:true});
 for(const name of ['bread-15s-silent.mp4','bread-poster.png','http-cache-15s-silent.mp4','http-cache-poster.png','rag-60s-silent.mp4','poster-60s.png','rag-15s-silent.mp4','poster.png','cartoon.png','diagram.png','editorial.png']) await copyFile(new URL(`examples/auto-video/${name}`,root),new URL(`assets/auto-video/${name}`,target));
 await mkdir(new URL('downloads/',target),{recursive:true});
 for(const name of ['auto-video.zip','topicmotion.zip','SHA256SUMS']) await copyFile(new URL(`downloads/${name}`,root),new URL(`downloads/${name}`,target));
+
+
+await mkdir(new URL('assets/topicmotion-intro/',target),{recursive:true});
+for(const name of ['topicmotion-intro-30s.mp4','poster.png','captions.srt'])await copyFile(new URL(`examples/topicmotion-intro/${name}`,root),new URL(`assets/topicmotion-intro/${name}`,target));
+
 console.log(`Static demo ready: ${fileURLToPath(target)}`);

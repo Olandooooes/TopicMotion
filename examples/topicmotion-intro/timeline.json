@@ -1,0 +1,92 @@
+{
+  "scenes": [
+    {
+      "title": "输入话题，就从这里开始",
+      "lines": [
+        "想把一个话题，做成视频？",
+        "输入内容，选择风格和时长。"
+      ],
+      "startFrame": 0,
+      "durationInFrames": 247,
+      "captions": [
+        {
+          "text": "想把一个话题，做成视频？",
+          "from": 3,
+          "to": 109
+        },
+        {
+          "text": "输入内容，选择风格和时长。",
+          "from": 119,
+          "to": 231
+        }
+      ],
+      "audioSrc": "voice-0.wav"
+    },
+    {
+      "title": "制作流程，自动接力",
+      "lines": [
+        "讲稿、分镜、配音和字幕，自动完成。",
+        "不用手动剪时间线。"
+      ],
+      "startFrame": 247,
+      "durationInFrames": 242,
+      "captions": [
+        {
+          "text": "讲稿、分镜、配音和字幕，自动完成。",
+          "from": 3,
+          "to": 130
+        },
+        {
+          "text": "不用手动剪时间线。",
+          "from": 139,
+          "to": 226
+        }
+      ],
+      "audioSrc": "voice-1.wav"
+    },
+    {
+      "title": "丰富动效，跟着内容变化",
+      "lines": [
+        "图形拆分，流程汇聚。",
+        "让画面跟着内容变化。"
+      ],
+      "startFrame": 489,
+      "durationInFrames": 218,
+      "captions": [
+        {
+          "text": "图形拆分，流程汇聚。",
+          "from": 3,
+          "to": 98
+        },
+        {
+          "text": "让画面跟着内容变化。",
+          "from": 108,
+          "to": 202
+        }
+      ],
+      "audioSrc": "voice-2.wav"
+    },
+    {
+      "title": "TopicMotion",
+      "lines": [
+        "从话题到成片。",
+        "让你的想法，动起来。"
+      ],
+      "startFrame": 707,
+      "durationInFrames": 193,
+      "captions": [
+        {
+          "text": "从话题到成片。",
+          "from": 3,
+          "to": 81
+        },
+        {
+          "text": "让你的想法，动起来。",
+          "from": 91,
+          "to": 176
+        }
+      ],
+      "audioSrc": "voice-3.wav"
+    }
+  ]
+}

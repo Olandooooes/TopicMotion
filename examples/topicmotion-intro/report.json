@@ -1,0 +1,36 @@
+{
+  "requestedSeconds": 30,
+  "frames": 900,
+  "voice": {
+    "model": "hexgrad/Kokoro-82M-v1.1-zh",
+    "name": "zf_001",
+    "speed": 0.96,
+    "revision": "01e7505bd6a7a2ac4975463114c3a7650a9f7218"
+  },
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1280,
+        "height": 720,
+        "nb_frames": "900",
+        "side_data_list": [
+          {}
+        ]
+      },
+      {
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "nb_frames": "1409"
+      }
+    ],
+    "format": {
+      "duration": "30.016000"
+    }
+  },
+  "subtitleAlignment": "Measured per utterance, split proportionally by character count",
+  "source": "Original script and SVG/React motion; Kokoro Chinese synthetic narration"
+}

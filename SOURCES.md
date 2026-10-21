@@ -27,3 +27,7 @@
 - 面团发酵：依据 [Exploratorium Bread Science](https://dev-annex.exploratorium.edu/cooking/bread/bread_science.html) 改写为简短中文口播，表现酵母产气、面筋留气、面团膨胀；不代表烘烤完成。SVG由本项目绘制，无真实比例、实测百分比或真实时间。
 - HTTP缓存：依据 [RFC 9111](https://www.rfc-editor.org/rfc/rfc9111.html) 的新鲜复用和存储规则通俗改写，仅演示新鲜命中与无副本回源，不展开过期条件校验、禁止存储等情形。
 - 两条公开MP4均来自公开分镜与本项目渲染器，已移除合成音轨；有声成片与私密缓存留本地。公开视觉适用项目MIT，配音许可边界未改变。
+
+## 30秒项目介绍
+
+原创脚本和React/SVG动效，展示项目实际制作流程与现有能力，无虚构统计。配音来自 Apache-2.0 开放模型 https://huggingface.co/hexgrad/Kokoro-82M-v1.1-zh 的标准中文音色zf_001，客户端Kokoro 0.9.4；不是特定真人的声音克隆。该片允许作为有声公开示例，未使用之前未确认公开授权的Edge/macOS声音；权重和运行环境不进入仓库或Skill安装包。字幕为每句实测后按字数分段估计。
