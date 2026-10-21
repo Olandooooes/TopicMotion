@@ -1,0 +1,87 @@
+{
+  "topic": "一分钟理解 RAG",
+  "duration": 60,
+  "style": "cartoon",
+  "voice": {
+    "provider": "neural",
+    "rate": -12
+  },
+  "sources": [
+    {
+      "title": "Lewis et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "url": "https://arxiv.org/abs/2005.11401"
+    }
+  ],
+  "scenes": [
+    {
+      "title": "说得像，不等于知道",
+      "visual": "hook",
+      "labels": [
+        "问题",
+        "凭记忆回答",
+        "先查资料"
+      ],
+      "narration": "模型说得很像，不代表它真的知道。R A G 的思路是，先查资料，再回答。",
+      "detail": "说得流畅，就一定正确吗？",
+      "result": "先查资料，再回答"
+    },
+    {
+      "title": "给资料，建一套索引",
+      "visual": "index",
+      "labels": [
+        "文档",
+        "切成片段",
+        "建立索引"
+      ],
+      "narration": "先把文档切成小块，建立索引。就像给图书馆里的每段资料，放上一张检索卡。"
+    },
+    {
+      "title": "不是全塞进去，而是先筛选",
+      "visual": "retrieve",
+      "labels": [
+        "检索相关片段",
+        "检查版本和权限",
+        "挑出可用证据"
+      ],
+      "narration": "收到问题后，系统先检索相关片段。再检查版本和权限，挑出可用的证据。",
+      "note": "排序条为示意，不代表实测统计；版本和权限需系统维护。",
+      "result": "可用证据"
+    },
+    {
+      "title": "带着证据，请模型回答",
+      "visual": "context",
+      "labels": [
+        "你的问题",
+        "检索证据",
+        "一起交给模型"
+      ],
+      "narration": "接着，把问题和证据，一起交给模型。模型根据这些上下文，组织一段回答。"
+    },
+    {
+      "title": "答案旁边，留下出处",
+      "visual": "answer",
+      "labels": [
+        "什么时候提交？",
+        "返程后 30 天内",
+        "差旅制度 · 第 4 条"
+      ],
+      "narration": "比如问，报销材料什么时候交？系统查到制度，再回答，并标出对应出处。",
+      "detail": "先查制度，再回答",
+      "result": "回答与引用",
+      "sourceLabel": "来源：示例制度第4条",
+      "note": "虚构教学案例，30天并非通用报销规定。"
+    },
+    {
+      "title": "有据可查，也要核查",
+      "visual": "limits",
+      "labels": [
+        "资料是否有效",
+        "证据是否相关",
+        "回答是否忠实"
+      ],
+      "narration": "不过，查错资料，仍然可能答错。R A G 不是保证正确，而是让答案更有据可查。",
+      "detail": "检索也可能出错",
+      "result": "让答案更有据可查"
+    }
+  ]
+}

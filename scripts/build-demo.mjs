@@ -6,7 +6,7 @@ await mkdir(new URL('assets/', target), {recursive:true});
 for (const name of ['index.html','demo.js','timeline.mjs','showcase.js']) await copyFile(new URL(`docs/${name}`,root),new URL(name,target));
 for (const name of ['demo-silent.mp4','poster.png']) await copyFile(new URL(`examples/${name}`,root),new URL(`assets/${name}`,target));
 await mkdir(new URL('assets/auto-video/',target),{recursive:true});
-for(const name of ['rag-15s-silent.mp4','poster.png','cartoon.png','diagram.png','editorial.png']) await copyFile(new URL(`examples/auto-video/${name}`,root),new URL(`assets/auto-video/${name}`,target));
+for(const name of ['rag-60s-silent.mp4','poster-60s.png','rag-15s-silent.mp4','poster.png','cartoon.png','diagram.png','editorial.png']) await copyFile(new URL(`examples/auto-video/${name}`,root),new URL(`assets/auto-video/${name}`,target));
 await mkdir(new URL('downloads/',target),{recursive:true});
 for(const name of ['auto-video.zip','SHA256SUMS']) await copyFile(new URL(`downloads/${name}`,root),new URL(`downloads/${name}`,target));
 console.log(`Static demo ready: ${fileURLToPath(target)}`);

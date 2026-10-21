@@ -1,6 +1,6 @@
 {
   "name": "cartoon-video-starter",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "license": "MIT",
   "description": "Topic-to-video Codex Skill with automated narration, subtitles and three motion graphic styles",

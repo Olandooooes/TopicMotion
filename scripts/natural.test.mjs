@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {naturalFrames} from '../skills/auto-video/assets/renderer/natural.mjs';
+import {validateJob} from '../skills/auto-video/assets/renderer/validate.mjs';
+test('natural timing preserves measured speech and pauses, with exact frame total',()=>{const g=[[{duration:2},{duration:3}],[{duration:4}]];const f=naturalFrames(g,15);assert.equal(f.reduce((a,b)=>a+b),450);assert.ok(f[0]/30>=5.72);assert.ok(f[1]/30>=4.4);assert.throws(()=>naturalFrames(g,8),/未加速或截断/);});
+test('unsupported voice settings and overlong graphic details fail before synthesis',()=>{const j={topic:'面包',style:'cartoon',duration:15,scenes:[{title:'膨胀',narration:'酵母产生气体。',visual:'context',labels:['糖','气体','面团']}]};assert.equal(validateJob(j),j);assert.throws(()=>validateJob({...j,voice:{provider:'unknown'}}));assert.throws(()=>validateJob({...j,voice:{provider:'neural',rate:-99}}));assert.throws(()=>validateJob({...j,scenes:[{...j.scenes[0],result:'长'.repeat(19)}]}));});

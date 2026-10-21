@@ -5,7 +5,7 @@ root = Path(__file__).resolve().parent.parent
 source = root / 'skills' / 'auto-video'
 target = root / 'downloads' / 'auto-video.zip'
 target.parent.mkdir(exist_ok=True)
-exclude = {'node_modules', '__pycache__', '.DS_Store', '.git', 'out', 'dist'}
+exclude = {'node_modules', '.venv-tts', '__pycache__', '.DS_Store', '.git', 'out', 'dist'}
 media = {'.wav', '.mp3', '.m4a', '.aac', '.aiff', '.ogg', '.mp4', '.webm'}
 with zipfile.ZipFile(target, 'w', zipfile.ZIP_DEFLATED) as archive:
     for path in sorted(source.rglob('*')):

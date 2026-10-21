@@ -4,11 +4,11 @@
 
 [在线演示](https://olandooooes.github.io/cartoon-video-starter/) · [下载 Skill](downloads/auto-video.zip) · [Skill 指令](skills/auto-video/SKILL.md) · [验证与交付记录](DELIVERY.md) · [独立评审记录](REVIEW.md)
 
-> 用 `$auto-video` 把 RAG 做成 15 秒卡通讲解视频，全自动生成口播、字幕和成片。
+> 用 `$auto-video` 把 RAG 做成 60 秒卡通讲解视频，全自动生成口播、字幕和成片。
 
 ![自动成片示例](examples/auto-video/poster.png)
 
-[观看 15 秒无声样片](examples/auto-video/rag-15s-silent.mp4)。本地已验证有声成片；公开版不附带尚未确认再分发授权的系统配音。RAG 是验证话题，工具不限于 RAG 或卡通。
+[观看一分钟丰富动效样片](examples/auto-video/rag-60s-silent.mp4)。本地已验证有声成片；公开版不附带尚未确认再分发授权的合成配音。RAG 是验证话题，工具不限于 RAG 或卡通。
 
 ## 它怎样工作
 
@@ -16,7 +16,7 @@
 flowchart LR
   A[话题 · 风格 · 时长] --> B[Codex 编稿并核验事实]
   B --> C[结构化分镜]
-  C --> D[本地合成语音并测时]
+  C --> D[在线神经配音或系统音并测时]
   D --> E[字幕 · 动画 · 转场]
   E --> F[MP4 + SRT + 口播稿]
 ```
@@ -25,7 +25,7 @@ flowchart LR
 
 ## 安装与第一次使用
 
-已验证环境：macOS、Node.js 24、Chrome、系统 Tingting 语音。需要 Node.js 22.13+；建议 Node 24。首次运行可能下载 npm 依赖或浏览器。当前其他系统尚未实现自动配音适配器。
+已验证环境：macOS、Node.js 24、Python 3、Chrome、Edge 中文神经配音（显式选择系统音时为 Tingting）。需要 Node.js 22.13+；建议 Node 24。首次运行可能下载 npm 依赖、Python 配音依赖或浏览器。默认在线神经配音不需 API 密钥，但会发送口播文本；网络失败会明确报错，不静默切换声音。当前其他系统尚未实现自动配音适配器。
 
 ```sh
 git clone https://github.com/Olandooooes/cartoon-video-starter.git
@@ -52,7 +52,7 @@ npm run skill:install
 | 风格 | 适合表达 | 预览 |
 | --- | --- | --- |
 | `cartoon` 卡通 | 科普、入门讲解 | [查看](examples/auto-video/cartoon.png) |
-| `diagram` 深色流程图 | 技术原理、流程 | [查看](examples/auto-video/diagram.png) |
+| `diagram` 蓝色流程图 | 技术原理、流程 | [查看](examples/auto-video/diagram.png) |
 | `editorial` 极简图文 | 观点、要点、产品说明 | [查看](examples/auto-video/editorial.png) |
 
 这三个版本使用同一分镜，改变视觉呈现。当前为程序化图形动画，不包含生成式实拍、数字人或逐帧角色表演。
@@ -88,7 +88,7 @@ node skills/auto-video/scripts/render.mjs \
 
 ## 在线演示与录音试听
 
-[演示页](https://olandooooes.github.io/cartoon-video-starter/) 包含完整 15 秒样片、三种风格静帧、Skill 下载和指令生成入口，保留最早五秒形状变换试样。
+[演示页](https://olandooooes.github.io/cartoon-video-starter/) 包含完整 60 秒连续动效样片、15 秒早期样片、三种风格静帧、Skill 下载和指令生成入口，保留最早五秒形状变换试样。
 
 在五秒播放器下选择自己的录音，即可同步试听、调音量与延迟；录音仅在本浏览器读取，不上传、不保存。刷新后需重选。此处不合成新 MP4，下载的仍是无声视频。
 
@@ -112,7 +112,7 @@ npm run dev        # 最初五秒动画的 Remotion Studio
 - `docs/`、`scripts/build-demo.mjs`：静态演示页。
 - `examples/auto-video/`：公开的无声成片和风格预览。
 
-运行自动视频 Skill 不需要 Python 或 PyYAML；Python 仅用于源码打包。官方 Skill 校验器属于维护工具，可在具备 PyYAML 的环境使用。
+默认 neural 配音需要 Python 3；显式 system 配音无需 Python。PyYAML 只用于维护校验，不是运行依赖。官方 Skill 校验器属于维护工具，可在具备 PyYAML 的环境使用。
 
 ## 来源、许可和限制
 
@@ -121,3 +121,9 @@ npm run dev        # 最初五秒动画的 Remotion Studio
 RAG 事实来自公开论文的通俗改写。图中排序条不代表实测统计，最初样例中的制度和“30 天”是虚构教学案例。输出质量仍依赖资料、脚本和所用语音，自动生成不等于事实保证。
 
 当前待用户决定的事项记录在 [DELIVERY.md](DELIVERY.md)：包括未来公开配音的授权来源，以及是否投入云端生成后端。它们不影响现有本地 Skill、公开无声演示和复现流程。
+
+## v0.3：自然配音与丰富动效
+
+默认中文神经配音慢 12%，句间停顿 0.32 秒，按实际音长分配场景。文案过长会要求缩短，不加速或切断口播。字幕为句级测时和字数分段估计。首次自动安装 edge-tts 7.3.1；可用 `AUTO_VIDEO_TTS_PYTHON` 指定已有环境。在线服务可用性与许可由其提供方决定，不能保证永久免密钥可用。
+
+六种动效支持卡片拆分归档、排序筛选、输入汇聚、资料变回答、引用出现与总结聚合；全部按场景时长缩放。三种风格共享动效，切换配色。换话题时由 Codex 重写分镜字段，程序不含固定 RAG 文案。可复现分镜见 [一分钟任务](skills/auto-video/examples/rag-60s.json)。本地另用“面包为什么会发起来”验证相同流程。

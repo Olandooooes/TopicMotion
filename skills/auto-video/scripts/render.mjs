@@ -5,7 +5,7 @@ import {spawnSync} from 'node:child_process';
 import {resolve} from 'node:path';
 import {existsSync} from 'node:fs';
 import {checkRuntime} from './preflight.mjs';
-if(process.argv.includes('--help')){console.log('Auto Video: --job /path/job.json --out /new/output [--browser /path/Chrome]. Requires macOS, Node 22.13+, Tingting.');process.exit(0);}
+if(process.argv.includes('--help')){console.log('Auto Video: --job /path/job.json --out /new/output [--browser /path/Chrome]. Requires macOS, Node 22.13+, Python 3, Chrome; online neural voice by default, explicit system voice optional.');process.exit(0);}
 try {checkRuntime(process.platform,process.versions.node,existsSync('/usr/bin/say'));}
 catch(error){console.error(error.message);process.exit(1);}
 const engine=fileURLToPath(new URL('../assets/renderer/',import.meta.url));

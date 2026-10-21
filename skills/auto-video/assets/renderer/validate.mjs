@@ -6,9 +6,11 @@ export function validateJob(job) {
   for (const scene of job.scenes) {
     if (!scene || typeof scene.title !== 'string' || !scene.title.trim() || scene.title.length > 18) throw new Error('场景标题需要 1–18 字。');
     if (typeof scene.narration !== 'string' || !scene.narration.trim() || !/[\p{L}\p{N}]/u.test(scene.narration) || scene.narration.length > 240) throw new Error('每场口播需要 1–240 字。');
-    if (!['flow','search','evidence','summary'].includes(scene.visual)) throw new Error('未知 visual。');
+    if (!['flow','search','evidence','summary','hook','index','retrieve','context','answer','limits'].includes(scene.visual)) throw new Error('未知 visual。');
     if (!Array.isArray(scene.labels) || scene.labels.length < 1 || scene.labels.length > 3 || scene.labels.some(x => typeof x !== 'string' || !x.trim() || x.length > (scene.visual === 'flow' ? 7 : 17))) throw new Error('labels 需要 1–3 条短标签；流程标签最多 7 字，其他最多 17 字。');
   }
+  if(job.voice && (!['neural','system'].includes(job.voice.provider)|| (job.voice.rate!==undefined && (!Number.isInteger(job.voice.rate)||job.voice.rate < -30||job.voice.rate>10)))) throw new Error('voice: provider 为 neural/system，rate 为 -30 到 10 的整数百分比。');
+  for(const scene of job.scenes) for(const [key,max] of Object.entries({detail:24,result:18,sourceLabel:30,note:80})) if(scene[key]!==undefined&&(typeof scene[key]!=='string'||scene[key].length>max))throw new Error(`${key} 最多 ${max} 字。`);
   return job;
 }
 export function allocateFrames(scenes, duration, fps = 30) {

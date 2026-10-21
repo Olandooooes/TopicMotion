@@ -6,7 +6,7 @@ export async function installSkill(source,destination) {
  if(await access(destination).then(()=>true,()=>false))throw new Error('目标 Skill 已存在，未覆盖。请先审阅或备份已有版本。');
  await access(join(source,'SKILL.md'));
  await mkdir(resolve(destination,'..'),{recursive:true});
- await cp(source,destination,{recursive:true,errorOnExist:true,force:false,filter:path=>!path.split(/[\\/]/).some(p=>['node_modules','__pycache__','.DS_Store'].includes(p))});
+ await cp(source,destination,{recursive:true,errorOnExist:true,force:false,filter:path=>!path.split(/[\\/]/).some(p=>['node_modules','.venv-tts','__pycache__','.DS_Store'].includes(p))});
  return destination;
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
